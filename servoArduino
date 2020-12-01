@@ -1,0 +1,32 @@
+#include <Servo.h>
+
+Servo myservo;  // create servo object to control a servo
+
+float angle;  
+int val;    // variable for serial input
+String msg="reading";
+String msg1="servo angle is";
+int dt=20;   //delay
+
+void setup() {
+  myservo.attach(9); // attaches the servo on pin 9 to the servo object
+  Serial.begin(9600);
+}
+
+void loop() {
+Serial.println(msg);   // start message
+while (Serial.available()==0){}       
+val=Serial.parseInt();          //serial input
+
+
+angle=(180./7.)*val;        //sorting for 8 partition
+myservo.write(angle);     
+delay(dt);                  //delay for the current position
+
+
+Serial.print(msg1);           
+Serial.println(angle);
+
+
+
+}
